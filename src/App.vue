@@ -1,50 +1,43 @@
 <template>
-  <div>
-    <p class="
-    text-h4
-    text-weight-regular
-    text-center
-    text-green-6
-    no-margin
-    ">
-      olá mundo!
-    </p>
-    <button @click="mudarTema">Mudar para tema: {{tema.cor}}</button>
-  </div>
+  <q-layout view="hHh lpR fFf">
+
+    <q-header elevated class="bg-primary text-white">
+      <q-toolbar>
+        <q-btn dense flat round icon="menu" @click="toggleLeftDrawer" />
+
+        <q-toolbar-title>
+          <q-avatar>
+            <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg">
+          </q-avatar>
+          Title
+        </q-toolbar-title>
+      </q-toolbar>
+    </q-header>
+
+    <q-drawer v-model="leftDrawerOpen" side="left" overlay>
+      <!-- drawer content -->
+    </q-drawer>
+
+    <q-page-container>
+      <router-view />
+    </q-page-container>
+
+  </q-layout>
 </template>
 
 <script>
-import { useQuasar } from 'quasar'
-import { ref } from '@vue/reactivity'
+import { ref } from 'vue'
 
 export default {
-  name: 'App',
-  setup(){
-    const $q = useQuasar()
-    const tema = ref({
-      cor: 'escuro'
-    })
+  setup () {
+    const leftDrawerOpen = ref(false)
 
-    function mudarTema(){
-      if(tema.value.cor === 'escuro'){
-        $q.dark.set(true)
-        tema.value.cor = 'claro'
+    return {
+      leftDrawerOpen,
+      toggleLeftDrawer () {
+        leftDrawerOpen.value = !leftDrawerOpen.value
       }
-      else{
-        $q.dark.toggle()
-        tema.value.cor = 'escuro'
-      }
-      
-    }
-
-    return{
-      tema,
-      mudarTema
     }
   }
 }
 </script>
-
-<style>
-
-</style>
