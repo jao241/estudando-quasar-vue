@@ -1,26 +1,50 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <p class="
+    text-h4
+    text-weight-regular
+    text-center
+    text-green-6
+    no-margin
+    ">
+      olá mundo!
+    </p>
+    <button @click="mudarTema">Mudar para tema: {{tema.cor}}</button>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import { useQuasar } from 'quasar'
+import { ref } from '@vue/reactivity'
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld
+  setup(){
+    const $q = useQuasar()
+    const tema = ref({
+      cor: 'escuro'
+    })
+
+    function mudarTema(){
+      if(tema.value.cor === 'escuro'){
+        $q.dark.set(true)
+        tema.value.cor = 'claro'
+      }
+      else{
+        $q.dark.toggle()
+        tema.value.cor = 'escuro'
+      }
+      
+    }
+
+    return{
+      tema,
+      mudarTema
+    }
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 </style>
