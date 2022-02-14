@@ -1,0 +1,51 @@
+<template>
+  <div class="column">
+    <div class="row justify-around col">
+      <p
+        class="
+          text-h4 text-center text-weight-regular text-green-6
+          no-margin
+          q-pa-xl
+          shadow-2
+          col-xs-12 col-sm-4 col-md-3
+        "
+        v-for="(value, index) in 3" :key="index"
+      >
+        olá mundo!
+      </p>
+    </div>
+    <button @click="mudarTema" class="q-ma-md no-border col order-first">
+      Mudar para tema: {{ tema.cor }}
+    </button>
+  </div>
+</template>
+
+<script>
+import { useQuasar } from "quasar";
+import { ref } from "@vue/reactivity";
+
+export default {
+  name: "App",
+  setup() {
+    const $q = useQuasar();
+    const tema = ref({
+      cor: "escuro",
+    });
+
+    function mudarTema() {
+      if (tema.value.cor === "escuro") {
+        $q.dark.set(true);
+        tema.value.cor = "claro";
+      } else {
+        $q.dark.toggle();
+        tema.value.cor = "escuro";
+      }
+    }
+
+    return {
+      tema,
+      mudarTema,
+    };
+  },
+};
+</script>
